@@ -957,7 +957,7 @@ body {
 
 .book-wrapper {
   position: relative;
-  width: 100%;
+  width: 80%;
   height: 720px;
   transform-style: preserve-3d;
 }
