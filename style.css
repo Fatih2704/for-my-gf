@@ -1,0 +1,722 @@
+/* ==================================================
+   PROJECT HAPPY BIRTHDAY
+   STYLE CSS
+================================================== */
+
+/* ==================================================
+   RESET
+================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  color: #2d2926;
+
+  background: #f3efe9;
+}
+
+/* ==================================================
+   BACKGROUND
+================================================== */
+
+.background {
+  position: fixed;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+.glow {
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  border-radius: 50%;
+
+  filter: blur(100px);
+
+  opacity: 0.22;
+}
+
+.glow-1 {
+  top: -200px;
+  left: -150px;
+
+  background: #e6ddd1;
+}
+
+.glow-2 {
+  right: -180px;
+  bottom: -200px;
+
+  background: #ddd4c9;
+}
+
+/* ==================================================
+   APP
+================================================== */
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+/* ==================================================
+   PAGE
+================================================== */
+
+.page {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px;
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transform: translateY(12px);
+
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease,
+    visibility 0.7s ease;
+}
+
+.page.active {
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+
+  transform: translateY(0);
+}
+
+/* ==================================================
+   CONTENT
+================================================== */
+
+.content {
+  width: 100%;
+  max-width: 1000px;
+
+  text-align: center;
+}
+
+.small-text {
+  margin-bottom: 24px;
+
+  font-size: 15px;
+
+  letter-spacing: 4px;
+
+  text-transform: uppercase;
+
+  color: #89837c;
+}
+
+.content h1 {
+  margin-bottom: 45px;
+
+  font-size: clamp(42px, 5vw, 72px);
+
+  font-weight: 400;
+
+  line-height: 1.15;
+}
+
+/* ==================================================
+   INPUT
+================================================== */
+
+.input-wrapper {
+  width: min(500px, 90%);
+
+  margin: 0 auto 28px;
+}
+
+.input-wrapper input {
+  width: 100%;
+
+  padding: 14px 10px;
+
+  border: none;
+
+  border-bottom: 1px solid #aaa39c;
+
+  outline: none;
+
+  background: transparent;
+
+  text-align: center;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 22px;
+
+  color: #302c29;
+
+  transition: border-color 0.3s ease;
+}
+
+.input-wrapper input::placeholder {
+  color: #aaa49e;
+}
+
+.input-wrapper input:focus {
+  border-bottom-color: #55504b;
+}
+
+.input-error {
+  animation: inputShake 0.35s ease;
+}
+
+@keyframes inputShake {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-6px);
+  }
+
+  50% {
+    transform: translateX(6px);
+  }
+
+  75% {
+    transform: translateX(-4px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* ==================================================
+   BUTTON
+================================================== */
+
+.main-button {
+  min-width: 130px;
+
+  padding: 13px 30px;
+
+  border: 1px solid #9d9790;
+
+  border-radius: 999px;
+
+  background: transparent;
+
+  color: #403b37;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 17px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.main-button:hover {
+  background: #38332f;
+
+  color: #f8f5f0;
+
+  transform: translateY(-2px);
+}
+
+.main-button:active {
+  transform: scale(0.96);
+}
+
+/* ==================================================
+   MESSAGE
+================================================== */
+
+.input-message,
+.error-message {
+  min-height: 25px;
+
+  margin-bottom: 10px;
+
+  font-size: 14px;
+
+  color: #8c6258;
+
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+}
+
+.input-message.show,
+.error-message.show {
+  opacity: 1;
+}
+
+/* ==================================================
+   OPENING 2
+================================================== */
+
+.choice-container {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 120px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 25px;
+}
+
+.choice-button {
+  border: 1px solid #9d9790;
+
+  border-radius: 999px;
+
+  padding: 13px 30px;
+
+  background: transparent;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 17px;
+
+  color: #403b37;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.4s ease,
+    opacity 0.3s ease;
+}
+
+.choice-button:hover {
+  background: #38332f;
+
+  color: white;
+}
+
+.yes-button {
+  position: relative;
+
+  z-index: 2;
+}
+
+.no-button {
+  position: relative;
+
+  z-index: 1;
+}
+
+.confidence-message {
+  min-height: 30px;
+
+  margin-bottom: 15px;
+
+  color: #8c6258;
+
+  opacity: 0;
+
+  transition: opacity 0.4s ease;
+}
+
+.confidence-message.show {
+  opacity: 1;
+}
+
+/* ==================================================
+   OPENING 5
+================================================== */
+
+.special-note {
+  margin-bottom: 35px;
+
+  font-size: 14px;
+
+  letter-spacing: 4px;
+
+  color: #89837c;
+}
+
+.fullname-title {
+  margin-bottom: 55px !important;
+}
+
+.fullname-title span {
+  font-size: 0.72em;
+}
+
+/* ==================================================
+   OPENING 6
+================================================== */
+
+.special-title {
+  margin-top: 5px;
+}
+
+/* ==================================================
+   CHAPTER MENU
+================================================== */
+
+.chapter-menu-content {
+  width: 100%;
+
+  max-width: 1200px;
+
+  text-align: center;
+}
+
+/* ==================================================
+   CHAPTER MENU — BAGIAN ATAS
+================================================== */
+
+.chapter-subtitle {
+  margin-bottom: 18px;
+
+  font-size: 15px;
+
+  letter-spacing: 5px;
+
+  text-transform: uppercase;
+
+  color: #8a847e;
+}
+
+.chapter-title {
+  margin-bottom: 55px;
+
+  font-size: clamp(48px, 5vw, 68px);
+
+  line-height: 1.1;
+
+  font-weight: 400;
+}
+
+/* ==================================================
+   CHAPTER LIST
+================================================== */
+
+.chapter-list {
+  width: 100%;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: stretch;
+
+  gap: 28px;
+
+  margin-bottom: 35px;
+}
+
+/* ==================================================
+   CHAPTER CARD
+================================================== */
+
+.chapter-card {
+  position: relative;
+
+  width: 270px;
+
+  height: 365px;
+
+  padding: 25px 22px;
+
+  border: 1px solid #b9b2aa;
+
+  border-radius: 24px;
+
+  background: rgba(255, 255, 255, 0.16);
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease,
+    opacity 0.35s ease;
+}
+
+.chapter-card:hover {
+  transform: translateY(-8px);
+
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.chapter-card.selected {
+  border: 2px solid #5d5751;
+
+  background: rgba(255, 255, 255, 0.32);
+
+  box-shadow: 0 15px 35px rgba(60, 54, 48, 0.09);
+}
+
+.chapter-card.locked {
+  opacity: 0.55;
+}
+
+.chapter-card.locked:hover {
+  transform: translateY(-5px);
+}
+
+/* ==================================================
+   CHAPTER NUMBER
+================================================== */
+
+.chapter-number {
+  margin-bottom: 14px;
+
+  font-size: 14px;
+
+  letter-spacing: 4px;
+
+  color: #77716b;
+}
+
+/* ==================================================
+   CHAPTER COVER
+================================================== */
+
+.chapter-cover {
+  width: 100%;
+
+  height: 205px;
+
+  border: 1px solid #c9c3bc;
+
+  border-radius: 17px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.38),
+    rgba(224, 217, 208, 0.25)
+  );
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 14px;
+
+  color: #716b65;
+
+  font-size: 13px;
+
+  letter-spacing: 3px;
+
+  transition: background 0.3s ease;
+}
+
+.chapter-card.selected .chapter-cover {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.5),
+    rgba(224, 217, 208, 0.35)
+  );
+}
+
+.lock-icon {
+  font-size: 23px;
+
+  letter-spacing: 0;
+}
+
+/* ==================================================
+   CHAPTER NAME
+================================================== */
+
+.chapter-name {
+  margin-top: 17px;
+
+  font-size: 21px;
+
+  color: #37322e;
+}
+
+/* ==================================================
+   CHAPTER STATUS
+================================================== */
+
+.chapter-status {
+  margin-top: 7px;
+
+  font-size: 13px;
+
+  letter-spacing: 1px;
+
+  color: #8b847d;
+}
+
+/* ==================================================
+   CHAPTER BUTTON
+================================================== */
+
+.chapter-enter-button {
+  margin-top: 0;
+}
+
+/* ==================================================
+   CHAPTER MESSAGE
+================================================== */
+
+.chapter-message {
+  min-height: 25px;
+
+  margin-top: 12px;
+
+  font-size: 14px;
+
+  color: #8c6258;
+
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+}
+
+.chapter-message.show {
+  opacity: 1;
+}
+
+/* ==================================================
+   CHAPTER 1 PAGE
+================================================== */
+
+.chapter-content {
+  text-align: center;
+}
+
+.chapter-label {
+  margin-bottom: 20px;
+
+  font-size: 14px;
+
+  letter-spacing: 5px;
+
+  color: #8b847d;
+}
+
+.chapter-description {
+  margin-bottom: 35px;
+
+  font-size: 18px;
+
+  color: #77716b;
+}
+
+.chapter-back-button {
+  margin-top: 10px;
+}
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media (max-width: 1000px) {
+  .chapter-list {
+    gap: 18px;
+  }
+
+  .chapter-card {
+    width: 225px;
+
+    height: 340px;
+  }
+
+  .chapter-cover {
+    height: 180px;
+  }
+}
+
+@media (max-width: 760px) {
+  body {
+    overflow-y: auto;
+  }
+
+  .page {
+    min-height: 100vh;
+
+    height: auto;
+
+    padding: 35px 20px;
+  }
+
+  .chapter-menu-content {
+    padding: 30px 0;
+  }
+
+  .chapter-title {
+    margin-bottom: 35px;
+  }
+
+  .chapter-list {
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 20px;
+  }
+
+  .chapter-card {
+    width: min(330px, 90vw);
+
+    height: 300px;
+  }
+
+  .chapter-cover {
+    height: 145px;
+  }
+}
