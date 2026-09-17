@@ -28,11 +28,11 @@ const pages = {
     page6:
         document.getElementById("page6"),
 
-    chapterMenu:
-        document.getElementById("chapterMenu"),
-
     chapter1:
-        document.getElementById("chapter1")
+        document.getElementById("chapter1"),
+
+    bookPage:
+        document.getElementById("bookPage")
 
 };
 
@@ -79,55 +79,48 @@ let audioContext = null;
 
 
 function playClickSound() {
-
     try {
-
         if (!audioContext) {
-
             audioContext =
                 new (
                     window.AudioContext ||
                     window.webkitAudioContext
                 )();
-
         }
 
+        if (audioContext.state === "suspended") {
+            audioContext.resume();
+        }
 
         const oscillator =
             audioContext.createOscillator();
 
-
         const gain =
             audioContext.createGain();
 
-
         oscillator.type =
             "sine";
-
 
         oscillator.frequency.setValueAtTime(
             520,
             audioContext.currentTime
         );
 
-
         gain.gain.setValueAtTime(
             0.0001,
             audioContext.currentTime
         );
 
-
+        /* Volume dinaikkan ke 0.95 & durasi diperpanjang ke 0.12 detik */
         gain.gain.exponentialRampToValueAtTime(
-            0.06,
-            audioContext.currentTime + 0.01
+            0.95,
+            audioContext.currentTime + 0.015
         );
-
 
         gain.gain.exponentialRampToValueAtTime(
             0.0001,
-            audioContext.currentTime + 0.08
+            audioContext.currentTime + 0.12
         );
-
 
         oscillator.connect(gain);
 
@@ -135,12 +128,10 @@ function playClickSound() {
             audioContext.destination
         );
 
-
         oscillator.start();
 
-
         oscillator.stop(
-            audioContext.currentTime + 0.08
+            audioContext.currentTime + 0.12
         );
 
     }
@@ -152,10 +143,7 @@ function playClickSound() {
         );
 
     }
-
 }
-
-
 
 /* ==================================================
    OPENING 1
@@ -431,7 +419,7 @@ yesButton.addEventListener(
         /*
           Setelah notifikasi,
           masuk ke:
-    
+
           "Oh... ternyata benar kamu."
         */
 
@@ -471,7 +459,7 @@ yesButton.addEventListener(
                         pages.page3.querySelector(
                             "h1"
                         ).textContent =
-                            "Kalau begitu...";
+                            "Kalo gitu...";
 
 
                         /*
@@ -800,10 +788,7 @@ enterButton.addEventListener(
 
         playClickSound();
 
-
-        showPage(
-            pages.chapterMenu
-        );
+        showCelebration();
 
     }
 );
@@ -811,205 +796,491 @@ enterButton.addEventListener(
 
 
 /* ==================================================
-   CHAPTER SYSTEM
+   BIRTHDAY CELEBRATION
 ================================================== */
 
-const chapterCards =
-    document.querySelectorAll(
-        ".chapter-card"
-    );
-
-
-const enterChapterButton =
+const celebrationOverlay =
     document.getElementById(
-        "enterChapterButton"
+        "celebrationOverlay"
     );
 
-
-const chapterMessage =
+const celebrationConfetti =
     document.getElementById(
-        "chapterMessage"
+        "celebrationConfetti"
     );
 
+const celebrationContinueButton =
+    document.getElementById(
+        "celebrationContinueButton"
+    );
 
-let selectedChapter =
-    1;
+const celebrationPhotos =
+    document.getElementById(
+        "celebrationPhotos"
+    );
 
+let celebrationPhotosTimer =
+    null;
 
-/*
-  Untuk sekarang:
+/* Fanfare: deretan nada gembok.
+   Membuat AudioContext baru agar
+   lebih keras dari click biasa. */
+let birthdayAudio = null;
 
-  Chapter 1 = terbuka
-  Chapter 2 = terkunci
-  Chapter 3 = terkunci
+function playBirthdayFanfare() {
+    try {
+        if (!birthdayAudio) {
+            // Ganti 'lagu.mp3' dengan nama/path file MP3 kamu
+            birthdayAudio = new Audio('./sounds/hbd.mp3');
+        }
 
-  Nanti setelah Chapter 1 selesai:
+        birthdayAudio.currentTime = 0; // Mengulang dari awal pas fungsi dipanggil lagi
 
-  unlockedChapter = 2
-*/
+        birthdayAudio.play().catch(error => {
+            console.log("Audio gagal diputar:", error);
+        });
+    } catch (error) {
+        console.log("Audio tidak tersedia.");
+    }
+}
 
-let unlockedChapter =
-    1;
+function createConfetti() {
 
+    const colors = [
+        "#d81b7a",
+        "#ffb84d",
+        "#8f5fe8",
+        "#4dd2ff",
+        "#ff6b6b",
+        "#7ed957"
+    ];
 
+    for (let i = 0; i < 80; i++) {
 
-/* ==================================================
-   SELECT CHAPTER
-================================================== */
+        const piece =
+            document.createElement("div");
 
-chapterCards.forEach(
-    card => {
+        piece.classList.add(
+            "confetti-piece"
+        );
 
-        card.addEventListener(
-            "click",
+        piece.style.left =
+            Math.random() * 100 + "%";
+
+        piece.style.background =
+            colors[
+                Math.floor(
+                    Math.random() *
+                        colors.length
+                )
+            ];
+
+        const duration =
+            2.5 + Math.random() * 2.5;
+
+        piece.style.animationDuration =
+            duration + "s";
+
+        piece.style.animationDelay =
+            Math.random() * 1.5 + "s";
+
+        /* Semua mendarat di
+           paling dasar layar */
+
+        piece.style.setProperty(
+            "--land",
+            "calc(100vh + 15px)"
+        );
+
+        piece.style.transform =
+            "rotate(" +
+            Math.random() * 360 +
+            "deg)";
+
+        celebrationConfetti.appendChild(
+            piece
+        );
+
+    }
+
+}
+
+function showCelebration() {
+
+    celebrationOverlay.classList.add(
+        "show"
+    );
+
+    /* Hapus confetti lama biar
+       nggak numpuk kalau dibuka lagi */
+
+    celebrationConfetti.innerHTML =
+        "";
+
+    /* Sembunyikan foto & tombol dulu,
+       baru muncul setelah
+       confetti selesai jatuh */
+
+    celebrationPhotos.classList.remove(
+        "show"
+    );
+
+    celebrationContinueButton.classList.remove(
+        "show"
+    );
+
+    clearTimeout(
+        celebrationPhotosTimer
+    );
+
+    createConfetti();
+
+    playBirthdayFanfare();
+
+    /* Tunggu sampai confetti
+       turun selesai (~6 detik) */
+
+    celebrationPhotosTimer =
+        setTimeout(
             () => {
 
-                playClickSound();
-
-
-                selectedChapter =
-                    Number(
-                        card.dataset.chapter
-                    );
-
-
-                chapterCards.forEach(
-                    item => {
-
-                        item.classList.remove(
-                            "selected"
-                        );
-
-                    }
+                celebrationPhotos.classList.add(
+                    "show"
                 );
 
-
-                card.classList.add(
-                    "selected"
+                celebrationContinueButton.classList.add(
+                    "show"
                 );
 
-
-                /*
-                  Jika terkunci,
-                  tampilkan pesan.
-                */
-
-                if (
-                    selectedChapter >
-                    unlockedChapter
-                ) {
-
-                    chapterMessage.textContent =
-                        "Chapter ini masih terkunci. Selesaikan chapter sebelumnya dulu.";
-
-                    chapterMessage.classList.add(
-                        "show"
-                    );
-
-                }
-
-                else {
-
-                    chapterMessage.classList.remove(
-                        "show"
-                    );
-
-                }
-
-            }
+            },
+            6000
         );
 
-    }
-);
+}
 
+function hideCelebration() {
 
-
-/* ==================================================
-   BUTTON MASUK CHAPTER
-================================================== */
-
-enterChapterButton.addEventListener(
-    "click",
-    () => {
-
-        playClickSound();
-
-
-        /*
-          Jika chapter belum terbuka
-        */
-
-        if (
-            selectedChapter >
-            unlockedChapter
-        ) {
-
-            chapterMessage.textContent =
-                "Belum bisa masuk. Selesaikan Chapter sebelumnya dulu.";
-
-            chapterMessage.classList.add(
-                "show"
-            );
-
-
-            return;
-
-        }
-
-
-        /*
-          CHAPTER 1
-        */
-
-        if (
-            selectedChapter === 1
-        ) {
-
-            showPage(
-                pages.chapter1
-            );
-
-
-            return;
-
-        }
-
-
-        /*
-          Placeholder untuk
-          Chapter berikutnya.
-    
-          Nanti kita tambahkan:
-          Chapter 2
-          Chapter 3
-          dst.
-        */
-
-    }
-);
-
-
-
-/* ==================================================
-   KEMBALI KE CHAPTER MENU
-================================================== */
-
-const backToChapterMenu =
-    document.getElementById(
-        "backToChapterMenu"
+    celebrationOverlay.classList.remove(
+        "show"
     );
 
+    celebrationConfetti.innerHTML =
+        "";
 
-backToChapterMenu.addEventListener(
+    celebrationPhotos.classList.remove(
+        "show"
+    );
+
+    celebrationContinueButton.classList.remove(
+        "show"
+    );
+
+    clearTimeout(
+        celebrationPhotosTimer
+    );
+
+}
+
+celebrationContinueButton.addEventListener(
     "click",
     () => {
 
         playClickSound();
 
+        hideCelebration();
 
-        showPage(
-            pages.chapterMenu
-        );
+        showBook();
 
     }
 );
+
+
+/* ==================================================
+   BACKGROUND MUSIC (BGM)
+   Lagunya baru jalan pas sampul dibuka,
+   masuknya pelan-pelan (fade in) biar ga kaget.
+================================================== */
+
+const musicToggle = document.getElementById("musicToggle");
+
+const BGM_SRC = "./sounds/love-song.mp3"; // Lokasi file lagunya
+const BGM_VOLUME = 0.95; // Volume maksimal, 0 - 1
+const BGM_FADE_IN = 2200; // Durasi fade in (ms)
+const BGM_FADE_OUT = 900; // Durasi fade out (ms)
+
+// Audio dibikin langsung dari JS, ga perlu tag <audio> di HTML
+const bgmMusic = new Audio(BGM_SRC);
+bgmMusic.loop = true;
+bgmMusic.preload = "auto";
+bgmMusic.volume = 0;
+
+// Kalau file-nya ga ketemu / formatnya ditolak browser
+bgmMusic.addEventListener("error", () => {
+  console.log("Musik ga bisa dimuat. Cek lagi path-nya: " + BGM_SRC);
+
+  if (musicToggle) {
+    musicToggle.classList.remove("show", "playing");
+  }
+});
+
+let bgmFadeTimer = null;
+let bgmStarted = false;
+let bgmMuted = false;
+
+function fadeBgm(targetVolume, duration, onDone) {
+  if (!bgmMusic) return;
+
+  clearInterval(bgmFadeTimer);
+
+  const startVolume = bgmMusic.volume;
+  const startTime = performance.now();
+
+  bgmFadeTimer = setInterval(() => {
+    const progress = Math.min((performance.now() - startTime) / duration, 1);
+
+    bgmMusic.volume = Math.max(
+      0,
+      Math.min(1, startVolume + (targetVolume - startVolume) * progress)
+    );
+
+    if (progress >= 1) {
+      clearInterval(bgmFadeTimer);
+      if (onDone) onDone();
+    }
+  }, 40);
+}
+
+function startBgm() {
+  if (!bgmMusic || bgmStarted || bgmMuted) return;
+
+  bgmStarted = true;
+  bgmMusic.volume = 0;
+
+  const played = bgmMusic.play();
+
+  // Kalau browser nolak autoplay / file ga ketemu, jangan bikin error
+  if (played && typeof played.catch === "function") {
+    played.catch(() => {
+      bgmStarted = false;
+      console.log("Musik belum bisa diputar.");
+    });
+  }
+
+  fadeBgm(BGM_VOLUME, BGM_FADE_IN);
+
+  if (musicToggle) {
+    musicToggle.classList.add("show", "playing");
+    musicToggle.classList.remove("muted");
+  }
+}
+
+function stopBgm() {
+  if (!bgmMusic || !bgmStarted) return;
+
+  bgmStarted = false;
+
+  fadeBgm(0, BGM_FADE_OUT, () => {
+    bgmMusic.pause();
+    bgmMusic.currentTime = 0;
+  });
+
+  if (musicToggle) {
+    musicToggle.classList.remove("show", "playing");
+  }
+}
+
+/* Tombol mute / unmute */
+if (musicToggle) {
+  musicToggle.addEventListener("click", () => {
+    if (!bgmMusic) return;
+
+    bgmMuted = !bgmMuted;
+
+    if (bgmMuted) {
+      fadeBgm(0, 400, () => bgmMusic.pause());
+      musicToggle.classList.add("muted");
+      musicToggle.classList.remove("playing");
+    } else {
+      bgmMusic.play().catch(() => {});
+      fadeBgm(BGM_VOLUME, 800);
+      musicToggle.classList.remove("muted");
+      musicToggle.classList.add("playing");
+    }
+  });
+}
+
+/* ==================================================
+   SINGLE PAGE BOOK NAVIGATION LOGIC
+   Flip 3D: lembar depan beneran diputar ke kiri,
+   sisi belakangnya kelihatan, terus nyangkut di
+   tumpukan kiri. Buka & tutup punya animasi sendiri.
+================================================== */
+
+const notePapers = Array.from(document.querySelectorAll(".note-paper"));
+const bookWrapper = document.getElementById("bookWrapper");
+const prevPageBtn = document.getElementById("prevPageBtn");
+const nextPageBtn = document.getElementById("nextPageBtn");
+const pageIndicator = document.getElementById("pageIndicator");
+
+let currentPaperIndex = 0;
+const totalPapers = notePapers.length;
+let isFlipping = false;
+
+/* Susun tumpukan: yang udah dibalik numpuk di kiri,
+   yang belum numpuk di kanan (makin belakang makin dalam) */
+function paintStack() {
+  notePapers.forEach((paper, index) => {
+    if (index < currentPaperIndex) {
+      paper.classList.add("turned");
+      paper.classList.remove("active");
+      paper.style.setProperty("--depth", String(currentPaperIndex - index));
+      paper.style.zIndex = String(20 + index);
+    } else {
+      paper.classList.remove("turned");
+      paper.classList.toggle("active", index === currentPaperIndex);
+      paper.style.setProperty("--depth", String(index - currentPaperIndex));
+      paper.style.zIndex = String(20 + (totalPapers - index));
+    }
+  });
+}
+
+function paintNav() {
+  if (currentPaperIndex === 0) {
+    pageIndicator.textContent = "Sampul";
+  } else {
+    pageIndicator.textContent = `${currentPaperIndex} / ${totalPapers - 1}`;
+  }
+
+  prevPageBtn.disabled = isFlipping || currentPaperIndex === 0;
+  nextPageBtn.disabled = isFlipping || currentPaperIndex === totalPapers - 1;
+}
+
+function updateBookState() {
+  paintStack();
+  paintNav();
+}
+
+/* direction: "next" (buka) atau "prev" (tutup) */
+function flipPage(direction) {
+  if (isFlipping) return;
+
+  const targetIndex =
+    direction === "next" ? currentPaperIndex : currentPaperIndex - 1;
+
+  if (direction === "next" && currentPaperIndex >= totalPapers - 1) return;
+  if (direction === "prev" && currentPaperIndex <= 0) return;
+
+  const paper = notePapers[targetIndex];
+  if (!paper) return;
+
+  isFlipping = true;
+  playClickSound();
+  paintNav();
+
+  // Sampul mulai kebuka -> musik nyala
+  if (direction === "next" && currentPaperIndex === 0) {
+    startBgm();
+  }
+
+  // Balik ke sampul -> musik pelan-pelan mati
+  if (direction === "prev" && currentPaperIndex === 1) {
+    stopBgm();
+  }
+
+  // Lembar yang lagi diflip harus paling depan
+  paper.style.zIndex = "60";
+  paper.style.setProperty("--depth", "0");
+  paper.classList.remove("active");
+
+  if (direction === "next") {
+    paper.classList.add("flip-open");
+  } else {
+    paper.classList.remove("turned");
+    paper.classList.add("flip-close");
+  }
+
+  let finished = false;
+
+  const finish = (event) => {
+    // Abaikan animationend dari ::before / ::after
+    if (event && event.pseudoElement) return;
+    if (finished) return;
+    finished = true;
+
+    paper.removeEventListener("animationend", finish);
+    clearTimeout(safety);
+
+    paper.classList.remove("flip-open", "flip-close");
+    currentPaperIndex += direction === "next" ? 1 : -1;
+    isFlipping = false;
+    updateBookState();
+  };
+
+  // Jaga-jaga kalau animationend nggak kebaca
+  const safety = setTimeout(finish, 1800);
+
+  paper.addEventListener("animationend", finish);
+}
+
+function showBook() {
+  isFlipping = false;
+
+  stopBgm();
+  bgmMuted = false;
+
+  if (musicToggle) {
+    musicToggle.classList.remove("show", "playing", "muted");
+  }
+
+  notePapers.forEach((paper) => {
+    paper.classList.remove("flip-open", "flip-close");
+  });
+
+  currentPaperIndex = 0;
+  updateBookState();
+  showPage(pages.bookPage);
+}
+
+if (nextPageBtn) {
+  nextPageBtn.addEventListener("click", () => flipPage("next"));
+}
+
+if (prevPageBtn) {
+  prevPageBtn.addEventListener("click", () => flipPage("prev"));
+}
+
+/* Geser layar buat ngebalik halaman (HP) */
+if (bookWrapper) {
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  bookWrapper.addEventListener(
+    "touchstart",
+    (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+      touchStartY = e.changedTouches[0].clientY;
+    },
+    { passive: true }
+  );
+
+  bookWrapper.addEventListener(
+    "touchend",
+    (e) => {
+      const deltaX = e.changedTouches[0].clientX - touchStartX;
+      const deltaY = e.changedTouches[0].clientY - touchStartY;
+
+      if (Math.abs(deltaX) < 55 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+      flipPage(deltaX < 0 ? "next" : "prev");
+    },
+    { passive: true }
+  );
+}
+
+/* Panah kiri/kanan di keyboard */
+document.addEventListener("keydown", (e) => {
+  if (!pages.bookPage || !pages.bookPage.classList.contains("active")) return;
+
+  if (e.key === "ArrowRight") flipPage("next");
+  if (e.key === "ArrowLeft") flipPage("prev");
+});

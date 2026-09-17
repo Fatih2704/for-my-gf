@@ -69,7 +69,7 @@
           </h1>
 
           <div class="choice-container">
-            
+
             <button class="choice-button yes-button" id="yesButton">
               Iya, Kenal kok
             </button>
@@ -85,7 +85,7 @@
 
       <section class="page" id="page3">
         <div class="content">
-          <h1>Kalau begitu...</h1>
+          <h1>Kalo gitu...</h1>
         </div>
       </section>
 
@@ -148,105 +148,142 @@
         </div>
       </section>
 
-      <!-- =========================================
-         CHAPTER MENU
+    <!-- =========================================
+         BIRTHDAY CELEBRATION OVERLAY
     ========================================== -->
 
-      <section class="page" id="chapterMenu">
-        <div class="chapter-menu-content">
-          <!-- BAGIAN ATAS -->
+      <div class="celebration-overlay" id="celebrationOverlay">
+        <div class="celebration-confetti" id="celebrationConfetti"></div>
 
-          <p class="chapter-subtitle">Cerita kita dimulai dari sini...</p>
+        <div class="celebration-content">
+          <p class="celebration-today">✦ Hari ini adalah hari spesial ✦</p>
 
-          <h1 class="chapter-title">Pilih Chapter</h1>
+          <h1 class="celebration-title" id="celebrationTitle">Happy Birthday</h1>
 
-          <!-- =====================================
-             CHAPTER CARDS
-        ====================================== -->
-
-          <div class="chapter-list">
-            <!-- CHAPTER 1 -->
-
-            <div class="chapter-card unlocked" data-chapter="1">
-              <div class="chapter-number">01</div>
-
-              <div class="chapter-cover">
-                <span> CHAPTER 1 </span>
-              </div>
-
-              <div class="chapter-name">Chapter 1</div>
-
-              <div class="chapter-status">Terbuka</div>
-            </div>
-
-            <!-- CHAPTER 2 -->
-
-            <div class="chapter-card locked" data-chapter="2">
-              <div class="chapter-number">02</div>
-
-              <div class="chapter-cover">
-                <span> CHAPTER 2 </span>
-
-                <span class="lock-icon"> 🔒 </span>
-              </div>
-
-              <div class="chapter-name">Chapter 2</div>
-
-              <div class="chapter-status">Terkunci</div>
-            </div>
-
-            <!-- CHAPTER 3 -->
-
-            <div class="chapter-card locked" data-chapter="3">
-              <div class="chapter-number">03</div>
-
-              <div class="chapter-cover">
-                <span> CHAPTER 3 </span>
-
-                <span class="lock-icon"> 🔒 </span>
-              </div>
-
-              <div class="chapter-name">Chapter 3</div>
-
-              <div class="chapter-status">Terkunci</div>
-            </div>
-          </div>
-
-          <!-- BUTTON MASUK -->
+          <p class="celebration-name">My Girfriend❤️</p>
 
           <button
-            class="main-button chapter-enter-button"
-            id="enterChapterButton"
+            class="main-button celebration-continue-button"
+            id="celebrationContinueButton"
           >
-            Masuk
+            Lanjut ➜
           </button>
-
-          <p class="chapter-message" id="chapterMessage"></p>
         </div>
-      </section>
+
+        <div class="celebration-photos" id="celebrationPhotos">
+          <img src="imgs/doodle1.png" alt="foto 1" />
+          <img src="imgs/doodle2.png" alt="foto 2" />
+          <img src="imgs/doodle3.png" alt="foto 3" />
+          <img src="imgs/doodle4.png" alt="foto 4" />
+          <img src="imgs/doodle5.png" alt="foto 5" />
+          <img src="imgs/doodle6.png" alt="foto 6" />
+          <img src="imgs/doodle7.png" alt="foto 7" />
+        </div>
+      </div>
 
       <!-- =========================================
-         CHAPTER 1
-    ========================================== -->
+              BOOK / NOTE SECTION (SINGLE PAGE FLIP)
+          ========================================== -->
+            <section class="page" id="bookPage">
+                <!-- Tombol on/off musik -->
+                <button class="music-toggle" id="musicToggle" type="button" aria-label="Musik">
+                <span class="music-icon">♪</span>
+                </button>
+              <div class="single-book-container">
+                <div class="book-wrapper" id="bookWrapper">
 
-      <section class="page" id="chapter1">
-        <div class="content chapter-content">
-          <p class="chapter-label">CHAPTER 01</p>
+                  <!-- Halaman 1: Sampul Depan -->
+                  <div class="note-paper active" data-page="1">
+                    <div class="cover-inner">
+                      <p class="cover-subtitle">✦ SPECIAL NOTE ✦</p>
+                      <h2>For My Girlfriend</h2>
+                      <p class="cover-name">Dhira Michel Ramadania</p>
+                      <p class="cover-footer">📖 Klik "Lanjut" untuk Membuka</p>
+                    </div>
+                  </div>
 
-          <h1>Chapter 1</h1>
+                  <!-- Halaman 2: Isi Catatan Bagian 1 -->
+                  <div class="note-paper" data-page="2">
+                    <div class="photo-frame photo-top-right">
+                      <div class="tape-strip"></div>
+                      <img src="imgs/doodle1.png" alt="Foto 1" />
+                    </div>
 
-          <p class="chapter-description">Cerita kita dimulai dari sini.</p>
+                    <div class="note-content">
+                      <p>
+                        buat seseorang yg bisa ngebuat aku selalu mikirin kamu disaat aku lagi apa dan dimana aku, kamu berhasil ngebuat aku selalu mikirin kamu, aku cuma mau bilang hari ini adalah hari spesial kamu dimana kamu bertambah satu tahun, kamu jadi berumur 19 tahun yg dimana dikit lagi kamu menjadi dewasa, segala hal yg kamu udah jalanin sampe saat ini kamu hebat! kamu kereennn!! aku bangga punya kamuuu, jalan kamu masih panjang, masih ada banyak hal yg nungguin kamu yg ada di depan sana.
+                      </p>
+                      <p>
+                        aku ga terlalu pinter ngerangkai kata-kata.. kalo ada kekurangan dari ungkapan aku ini aku minta maaf ya. rasanya aku seneng banget bisa kenal kamu, aku lebih baik mengenal kamu sedikit demi sedikit karena masih panjang perjalanan kita, aku ga mau kenal kamu langsung se-abrek atau langsung semuanya. aku juga seneng, aku jadi pasangan perjalanan kamu yg bakal liat kamu lebih dewasa.
+                      </p>
+                    </div>
 
-          <button
-            class="main-button chapter-back-button"
-            id="backToChapterMenu"
-          >
-            Kembali
-          </button>
-        </div>
-      </section>
-    </main>
+                    <div class="photo-frame photo-bottom-left">
+                      <div class="tape-strip"></div>
+                      <img src="imgs/doodle2.png" alt="Foto 2" />
+                    </div>
+                    <div class="page-number">- 1 -</div>
+                  </div>
 
+                  <!-- Halaman 3: Isi Catatan Bagian 2 -->
+                  <div class="note-paper" data-page="3">
+                    <div class="photo-frame photo-top-left">
+                      <div class="tape-strip"></div>
+                      <img src="imgs/doodle3.png" alt="Foto 3" />
+                    </div>
+
+                    <div class="note-content">
+                      <p>
+                        mungkin aku terlalu bucin buat kamu tapi ini adalah cara aku untuk ngungkapin perasaan suka, cinta ke kamu, aku mungkin bukan orang yg romantis ga kaya kamu, ga semua pasangan harus punya kesamaan kan? perbedaan bakal jadi satu dan selaras ketika menjalani hari hari nya dengan barengan.
+                      </p>
+                      <p>
+                        tadinya aku mau minta sesuatu ke kamu yaitu kamu bisa tunggu di jam 00.00 malam ini? aku mau ngirimin ini ke kamu, ke pacar aku yg cantik, tapi karena kamu lagi sakit, kamu belum bener-bener fit aku ya mungkin meminta itu dengan paksaan dan memenuhi rasa ego ku, aku sangat peduli kamu, kalo aku memenuhi rasa ego ku berarti aku ga ingin kamu sembuh dan sehat lagi.
+                      </p>
+                    </div>
+
+                    <div class="photo-frame photo-bottom-right">
+                      <div class="tape-strip"></div>
+                      <img src="imgs/doodle4.png" alt="Foto 4" />
+                    </div>
+                    <div class="page-number">- 2 -</div>
+                  </div>
+
+                  <!-- Halaman 4: Ucapan & Penutup -->
+                  <div class="note-paper" data-page="4">
+                    <div class="photo-frame photo-top-right">
+                      <div class="tape-strip"></div>
+                      <img src="imgs/doodle5.png" alt="Foto 5" />
+                    </div>
+
+                    <div class="note-content">
+                      <p class="highlight-text">
+                        Selamat Ulang Tahun, Cantik!! ❤️
+                      </p>
+                      <p>
+                        Semoga umur kamu yg naik lepel, semoga dunia lebih sering mempertemukan alasan alasan yg bisa ngebuat kamu selalu trsenyum, ga ada hal yg bikin kamu ga enak bagi kamu, malahan sebaliknya diantara banyak hal yg baik datang ke kamu, aku masih bisa menjadi salah satu alasan kamu yg bisa buat kamu tersenyum ❤️
+                      </p>
+                      <p class="closing-text">
+                        Makasih yaa ada untukku 🫶🏻
+                      </p>
+                    </div>
+
+                    <div class="photo-frame photo-bottom-left">
+                      <div class="tape-strip"></div>
+                      <img src="imgs/doodle6.png" alt="Foto 6" />
+                    </div>
+                    <div class="page-number">- 3 -</div>
+                  </div>
+
+                </div>
+
+                <!-- Navigasi Tombol Pindah Halaman -->
+                <div class="book-nav">
+                  <button class="nav-btn" id="prevPageBtn">← Sblmnya</button>
+                  <span class="page-indicator" id="pageIndicator">Sampul</span>
+                  <button class="nav-btn" id="nextPageBtn">Lanjut →</button>
+                </div>
+              </div>
+            </section>
     <!-- =========================================
        JAVASCRIPT
   ========================================== -->
