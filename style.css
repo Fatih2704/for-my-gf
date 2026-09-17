@@ -945,6 +945,7 @@ body {
 ================================================== */
 
 .single-book-container {
+  position: relative; /* Wajib relative agar tombol bisa melayang di samping */
   width: 100%;
   max-width: 680px;
   display: flex;
@@ -1315,26 +1316,50 @@ body {
 .book-nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center; /* Menjaga indikator halaman tetap di tengah */
   width: 100%;
   padding: 0 10px;
+}
+
+#prevPageBtn,
+#nextPageBtn {
+  position: absolute;
+  top: 360px; /* Pas di tengah-tengah tinggi buku (720px / 2) */
+  transform: translateY(-50%);
+  z-index: 25;
+}
+
+#prevPageBtn {
+  left: -75px; /* Posisikan di luar sisi kiri buku */
+}
+
+#nextPageBtn {
+  right: -75px; /* Posisikan di luar sisi kanan buku */
 }
 
 .nav-btn {
   padding: 11px 24px;
   border: 1px solid #9d9790;
   border-radius: 999px;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(4px);
   font-family: Georgia, serif;
   font-size: 15px;
   color: #403b37;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .nav-btn:hover:not(:disabled) {
   background: #38332f;
   color: #fff;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 .nav-btn:disabled {
@@ -1442,6 +1467,19 @@ body {
   .book-wrapper {
     height: 600px;
   }
+  /* Penyesuaian posisi tombol di layar HP */
+    #prevPageBtn,
+    #nextPageBtn {
+        top: 300px; /* Mengikuti tinggi buku mobile (600px / 2) */
+    }
+
+    #prevPageBtn {
+        left: -10px;
+    }
+
+    #nextPageBtn {
+        right: -10px;
+    }
   .book-wrapper::before {
     left: -11px;
     width: 13px;
