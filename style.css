@@ -1,0 +1,1492 @@
+/* ==================================================
+   PROJECT HAPPY BIRTHDAY
+   STYLE CSS
+================================================== */
+
+/* ==================================================
+   RESET
+================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  color: #2d2926;
+
+  background: #f3efe9;
+}
+
+/* ==================================================
+   BACKGROUND
+================================================== */
+
+.background {
+  position: fixed;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+.glow {
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  border-radius: 50%;
+
+  filter: blur(100px);
+
+  opacity: 0.22;
+}
+
+.glow-1 {
+  top: -200px;
+  left: -150px;
+
+  background: #e6ddd1;
+}
+
+.glow-2 {
+  right: -180px;
+  bottom: -200px;
+
+  background: #ddd4c9;
+}
+
+/* ==================================================
+   APP
+================================================== */
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+/* ==================================================
+   PAGE
+================================================== */
+
+.page {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px;
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transform: translateY(12px);
+
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease,
+    visibility 0.7s ease;
+}
+
+.page.active {
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+
+  transform: translateY(0);
+}
+
+/* ==================================================
+   CONTENT
+================================================== */
+
+.content {
+  width: 100%;
+  max-width: 1000px;
+
+  text-align: center;
+}
+
+.small-text {
+  margin-bottom: 24px;
+
+  font-size: 15px;
+
+  letter-spacing: 4px;
+
+  text-transform: uppercase;
+
+  color: #89837c;
+}
+
+.content h1 {
+  margin-bottom: 45px;
+
+  font-size: clamp(42px, 5vw, 72px);
+
+  font-weight: 400;
+
+  line-height: 1.15;
+}
+
+/* ==================================================
+   INPUT
+================================================== */
+
+.input-wrapper {
+  width: min(500px, 90%);
+
+  margin: 0 auto 28px;
+}
+
+.input-wrapper input {
+  width: 100%;
+
+  padding: 14px 10px;
+
+  border: none;
+
+  border-bottom: 1px solid #aaa39c;
+
+  outline: none;
+
+  background: transparent;
+
+  text-align: center;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 22px;
+
+  color: #302c29;
+
+  transition: border-color 0.3s ease;
+}
+
+.input-wrapper input::placeholder {
+  color: #aaa49e;
+}
+
+.input-wrapper input:focus {
+  border-bottom-color: #55504b;
+}
+
+.input-error {
+  animation: inputShake 0.35s ease;
+}
+
+@keyframes inputShake {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-6px);
+  }
+
+  50% {
+    transform: translateX(6px);
+  }
+
+  75% {
+    transform: translateX(-4px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* ==================================================
+   BUTTON
+================================================== */
+
+.main-button {
+  min-width: 130px;
+
+  padding: 13px 30px;
+
+  border: 1px solid #9d9790;
+
+  border-radius: 999px;
+
+  background: transparent;
+
+  color: #403b37;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 17px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.main-button:hover {
+  background: #38332f;
+
+  color: #f8f5f0;
+
+  transform: translateY(-2px);
+}
+
+.main-button:active {
+  transform: scale(0.96);
+}
+
+/* ==================================================
+   MESSAGE
+================================================== */
+
+.input-message,
+.error-message {
+  min-height: 25px;
+
+  margin-bottom: 10px;
+
+  font-size: 14px;
+
+  color: #8c6258;
+
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+}
+
+.input-message.show,
+.error-message.show {
+  opacity: 1;
+}
+
+/* ==================================================
+   OPENING 2
+================================================== */
+
+.choice-container {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 120px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 25px;
+}
+
+.choice-button {
+  border: 1px solid #9d9790;
+
+  border-radius: 999px;
+
+  padding: 13px 30px;
+
+  background: transparent;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 17px;
+
+  color: #403b37;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.4s ease,
+    opacity 0.3s ease;
+}
+
+.choice-button:hover {
+  background: #38332f;
+
+  color: white;
+}
+
+.yes-button {
+  position: relative;
+
+  z-index: 2;
+}
+
+.no-button {
+  position: relative;
+
+  z-index: 1;
+}
+
+.confidence-message {
+  min-height: 30px;
+
+  margin-bottom: 15px;
+
+  color: #8c6258;
+
+  opacity: 0;
+
+  transition: opacity 0.4s ease;
+}
+
+.confidence-message.show {
+  opacity: 1;
+}
+
+/* ==================================================
+   OPENING 5
+================================================== */
+
+.special-note {
+  margin-bottom: 35px;
+
+  font-size: 14px;
+
+  letter-spacing: 4px;
+
+  color: #89837c;
+}
+
+.fullname-title {
+  margin-bottom: 55px !important;
+}
+
+.fullname-title span {
+  font-size: 0.72em;
+}
+
+/* ==================================================
+   OPENING 6
+================================================== */
+
+.special-title {
+  margin-top: 5px;
+}
+
+/* ==================================================
+   CHAPTER MENU
+================================================== */
+
+.chapter-menu-content {
+  width: 100%;
+
+  max-width: 1200px;
+
+  text-align: center;
+}
+
+/* ==================================================
+   CHAPTER MENU — BAGIAN ATAS
+================================================== */
+
+.chapter-subtitle {
+  margin-bottom: 18px;
+
+  font-size: 15px;
+
+  letter-spacing: 5px;
+
+  text-transform: uppercase;
+
+  color: #8a847e;
+}
+
+.chapter-title {
+  margin-bottom: 55px;
+
+  font-size: clamp(48px, 5vw, 68px);
+
+  line-height: 1.1;
+
+  font-weight: 400;
+}
+
+/* ==================================================
+   CHAPTER LIST
+================================================== */
+
+.chapter-list {
+  width: 100%;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: stretch;
+
+  gap: 28px;
+
+  margin-bottom: 35px;
+}
+
+/* ==================================================
+   CHAPTER CARD
+================================================== */
+
+.chapter-card {
+  position: relative;
+
+  width: 270px;
+
+  height: 365px;
+
+  padding: 25px 22px;
+
+  border: 1px solid #b9b2aa;
+
+  border-radius: 24px;
+
+  background: rgba(255, 255, 255, 0.16);
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease,
+    opacity 0.35s ease;
+}
+
+.chapter-card:hover {
+  transform: translateY(-8px);
+
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.chapter-card.selected {
+  border: 2px solid #5d5751;
+
+  background: rgba(255, 255, 255, 0.32);
+
+  box-shadow: 0 15px 35px rgba(60, 54, 48, 0.09);
+}
+
+.chapter-card.locked {
+  opacity: 0.55;
+}
+
+.chapter-card.locked:hover {
+  transform: translateY(-5px);
+}
+
+/* ==================================================
+   CHAPTER NUMBER
+================================================== */
+
+.chapter-number {
+  margin-bottom: 14px;
+
+  font-size: 14px;
+
+  letter-spacing: 4px;
+
+  color: #77716b;
+}
+
+/* ==================================================
+   CHAPTER COVER
+================================================== */
+
+.chapter-cover {
+  width: 100%;
+
+  height: 205px;
+
+  border: 1px solid #c9c3bc;
+
+  border-radius: 17px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.38),
+    rgba(224, 217, 208, 0.25)
+  );
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 14px;
+
+  color: #716b65;
+
+  font-size: 13px;
+
+  letter-spacing: 3px;
+
+  transition: background 0.3s ease;
+}
+
+.chapter-card.selected .chapter-cover {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.5),
+    rgba(224, 217, 208, 0.35)
+  );
+}
+
+.lock-icon {
+  font-size: 23px;
+
+  letter-spacing: 0;
+}
+
+/* ==================================================
+   CHAPTER NAME
+================================================== */
+
+.chapter-name {
+  margin-top: 17px;
+
+  font-size: 21px;
+
+  color: #37322e;
+}
+
+/* ==================================================
+   CHAPTER STATUS
+================================================== */
+
+.chapter-status {
+  margin-top: 7px;
+
+  font-size: 13px;
+
+  letter-spacing: 1px;
+
+  color: #8b847d;
+}
+
+/* ==================================================
+   CHAPTER BUTTON
+================================================== */
+
+.chapter-enter-button {
+  margin-top: 0;
+}
+
+/* ==================================================
+   CHAPTER MESSAGE
+================================================== */
+
+.chapter-message {
+  min-height: 25px;
+
+  margin-top: 12px;
+
+  font-size: 14px;
+
+  color: #8c6258;
+
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+}
+
+.chapter-message.show {
+  opacity: 1;
+}
+
+/* ==================================================
+   CHAPTER 1 PAGE
+================================================== */
+
+.chapter-content {
+  text-align: center;
+}
+
+.chapter-label {
+  margin-bottom: 20px;
+
+  font-size: 14px;
+
+  letter-spacing: 5px;
+
+  color: #8b847d;
+}
+
+.chapter-description {
+  margin-bottom: 35px;
+
+  font-size: 18px;
+
+  color: #77716b;
+}
+
+.chapter-back-button {
+  margin-top: 10px;
+}
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media (max-width: 1000px) {
+  .chapter-list {
+    gap: 18px;
+  }
+
+  .chapter-card {
+    width: 225px;
+
+    height: 340px;
+  }
+
+  .chapter-cover {
+    height: 180px;
+  }
+}
+
+@media (max-width: 760px) {
+  body {
+    overflow-y: auto;
+  }
+
+  .page {
+    min-height: 100vh;
+
+    height: auto;
+
+    padding: 35px 20px;
+  }
+
+  .chapter-menu-content {
+    padding: 30px 0;
+  }
+
+  .chapter-title {
+    margin-bottom: 35px;
+  }
+
+  .chapter-list {
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 20px;
+  }
+
+  .chapter-card {
+    width: min(330px, 90vw);
+
+    height: 300px;
+  }
+
+  .chapter-cover {
+    height: 145px;
+  }
+}
+
+/* ==================================================
+   BIRTHDAY CELEBRATION OVERLAY
+================================================== */
+
+.celebration-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background: linear-gradient(
+    135deg,
+    #ffd6e8 0%,
+    #ffe9c7 50%,
+    #d6f0ff 100%
+  );
+
+  z-index: 999;
+}
+
+.celebration-overlay.show {
+  display: flex;
+
+  animation: celebrationFadeIn 0.6s ease both;
+}
+
+@keyframes celebrationFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.celebration-content {
+  position: relative;
+
+  z-index: 2;
+
+  padding: 24px;
+}
+
+.celebration-today {
+  font-size: 15px;
+
+  letter-spacing: 3px;
+
+  color: #a0446e;
+
+  animation: celebrationPop 0.8s 0.2s ease both;
+}
+
+.celebration-title {
+  margin-top: 14px;
+
+  font-size: clamp(40px, 9vw, 76px);
+
+  color: #d81b7a;
+
+  text-shadow: 0 4px 18px rgba(216, 27, 122, 0.35);
+
+  animation:
+    celebrationPop 0.9s 0.45s ease both,
+    celebrationBounce 2.4s 1.4s ease-in-out infinite;
+}
+
+.celebration-name {
+  margin-top: 10px;
+
+  font-size: clamp(22px, 5vw, 36px);
+
+  font-style: italic;
+
+  color: #4a3b8f;
+
+  animation: celebrationPop 0.9s 0.8s ease both;
+}
+
+.celebration-continue-button {
+  margin-top: 36px;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+.celebration-continue-button.show {
+  pointer-events: auto;
+
+  animation: celebrationPop 0.9s ease both;
+}
+
+@keyframes celebrationPop {
+  0% {
+    opacity: 0;
+    transform: translateY(26px) scale(0.7);
+  }
+  70% {
+    transform: translateY(-6px) scale(1.06);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes celebrationBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* PHOTOS BAWAH
+   muncul setelah confetti
+   selesai jatuh */
+
+.celebration-photos {
+  position: absolute;
+
+  left: 0;
+
+  right: 0;
+
+  bottom: 30px;
+
+  z-index: 3;
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 16px;
+
+  flex-wrap: wrap;
+
+  padding: 0 16px;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+.celebration-photos.show {
+  pointer-events: auto;
+
+  animation: celebrationPop 0.8s ease both;
+}
+
+.celebration-photos img {
+  width: 110px;
+
+  height: 140px;
+
+  object-fit: cover;
+
+  border-radius: 12px;
+
+  border: 3px solid #ffffff;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+  transform: rotate(-4deg);
+}
+
+.celebration-photos img:nth-child(2) {
+  transform: rotate(2deg);
+}
+
+.celebration-photos img:nth-child(3) {
+  transform: rotate(5deg);
+}
+
+/* CONFETTI */
+
+.celebration-confetti {
+  position: absolute;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+.confetti-piece {
+  position: absolute;
+
+  top: -20px;
+
+  width: 10px;
+  height: 16px;
+
+  border-radius: 2px;
+
+  opacity: 0.9;
+
+  animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-20px) rotate(0deg) rotateY(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(var(--land, 96vh))
+      rotate(720deg) rotateY(720deg);
+    opacity: 1;
+  }
+}
+
+/* ==================================================
+   SINGLE PAGE BOOK & FLIP SYSTEM
+   (flip 3D dua sisi: muka depan + muka belakang)
+================================================== */
+
+.single-book-container {
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  perspective: 2200px;
+  perspective-origin: 45% 45%;
+}
+
+.book-wrapper {
+  position: relative;
+  width: 100%;
+  height: 720px;
+  transform-style: preserve-3d;
+}
+
+/* Punggung buku di sisi kiri (poros lipatan) */
+.book-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: -17px;
+  width: 19px;
+  border-radius: 12px 3px 3px 12px;
+  background: linear-gradient(90deg, #241f1c 0%, #4a423c 55%, #1f1b18 100%);
+  box-shadow:
+    inset -4px 0 8px rgba(0, 0, 0, 0.45),
+    0 18px 38px rgba(45, 41, 38, 0.28);
+  z-index: 1;
+}
+
+/* Tumpukan tepi kertas di sisi kanan */
+.book-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  right: -9px;
+  width: 11px;
+  border-radius: 0 9px 9px 0;
+  background: repeating-linear-gradient(
+    90deg,
+    #f1eae0 0 2px,
+    #d8cfc1 2px 3px
+  );
+  box-shadow: 0 16px 32px rgba(45, 41, 38, 0.18);
+  z-index: 1;
+}
+
+/* --------------------------------------------------
+   LEMBAR KERTAS
+   Elemen .note-paper = "lembaran" 3D.
+   ::before = muka depan (yang ada tulisannya)
+   ::after  = muka belakang (kertas kosong)
+-------------------------------------------------- */
+
+.note-paper {
+  --depth: 0;
+  position: absolute;
+  inset: 0;
+  padding: 45px 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 18px;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transform: translateZ(calc(var(--depth) * -1.6px));
+  pointer-events: none;
+  will-change: transform;
+}
+
+.note-paper::before,
+.note-paper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  backface-visibility: hidden;
+}
+
+/* Muka depan */
+.note-paper::before {
+  background-color: #fcf9f4;
+  background-image: linear-gradient(
+    rgba(215, 206, 194, 0.15) 1px,
+    transparent 1px
+  );
+  background-size: 100% 32px;
+  border: 1px solid #e2dad0;
+  transform: translateZ(-0.6px);
+  box-shadow:
+    0 20px 45px rgba(45, 41, 38, 0.15),
+    inset 0 0 0 600px rgba(60, 45, 30, 0);
+}
+
+/* Muka belakang */
+.note-paper::after {
+  background-color: #f7f2ea;
+  background-image: linear-gradient(
+    rgba(215, 206, 194, 0.12) 1px,
+    transparent 1px
+  );
+  background-size: 100% 32px;
+  border: 1px solid #e4dcd2;
+  transform: translateZ(-0.6px) rotateY(180deg);
+  box-shadow:
+    inset 14px 0 26px rgba(120, 105, 90, 0.18),
+    inset 0 0 0 600px rgba(60, 45, 30, 0);
+}
+
+/* Isi halaman ikut kebalik & hilang saat lembar membelakangi kita */
+.note-paper > * {
+  backface-visibility: hidden;
+}
+
+.note-paper.active {
+  pointer-events: auto;
+}
+
+/* Lembar yang sudah dibalik (nyangkut di sisi kiri) */
+.note-paper.turned {
+  transform: translateZ(calc(var(--depth) * -1.6px)) rotateY(-180deg);
+  opacity: 0;
+}
+
+/* --------------------------------------------------
+   ANIMASI FLIP
+   Buka = sapuan panjang, berat di awal, melayang.
+   Tutup = jatuh lebih cepat lalu mendarat (ada settle).
+-------------------------------------------------- */
+
+.note-paper.flip-open {
+  animation: pageFlipOpen 1.15s cubic-bezier(0.62, 0.04, 0.3, 1) forwards;
+}
+.note-paper.flip-open::before {
+  animation: shadeFrontOpen 1.15s cubic-bezier(0.62, 0.04, 0.3, 1) forwards;
+}
+.note-paper.flip-open::after {
+  animation: shadeBackOpen 1.15s cubic-bezier(0.62, 0.04, 0.3, 1) forwards;
+}
+
+.note-paper.flip-close {
+  animation: pageFlipClose 0.92s cubic-bezier(0.33, 0.02, 0.24, 1) forwards;
+}
+.note-paper.flip-close::before {
+  animation: shadeFrontClose 0.92s cubic-bezier(0.33, 0.02, 0.24, 1) forwards;
+}
+.note-paper.flip-close::after {
+  animation: shadeBackClose 0.92s cubic-bezier(0.33, 0.02, 0.24, 1) forwards;
+}
+
+/* Sampul lebih berat (hardcover), jadi geraknya lebih lambat */
+.note-paper[data-page="1"].flip-open,
+.note-paper[data-page="1"].flip-open::before,
+.note-paper[data-page="1"].flip-open::after {
+  animation-duration: 1.45s;
+  animation-timing-function: cubic-bezier(0.68, 0.02, 0.26, 1);
+}
+
+.note-paper[data-page="1"].flip-close,
+.note-paper[data-page="1"].flip-close::before,
+.note-paper[data-page="1"].flip-close::after {
+  animation-duration: 1.15s;
+  animation-timing-function: cubic-bezier(0.4, 0.02, 0.22, 1);
+}
+
+@keyframes pageFlipOpen {
+  0% {
+    transform: rotateY(0deg) translateZ(0) rotateX(0deg);
+  }
+  14% {
+    transform: rotateY(-9deg) translateZ(18px) rotateX(1.2deg);
+  }
+  45% {
+    transform: rotateY(-76deg) translateZ(28px) rotateX(1.8deg);
+  }
+  74% {
+    transform: rotateY(-132deg) translateZ(18px) rotateX(0.9deg);
+  }
+  88% {
+    transform: rotateY(-160deg) translateZ(8px) rotateX(0.4deg);
+  }
+  100% {
+    transform: rotateY(-180deg) translateZ(0) rotateX(0deg);
+  }
+}
+
+@keyframes pageFlipClose {
+  0% {
+    transform: rotateY(-180deg) translateZ(0) rotateX(0deg);
+  }
+  12% {
+    transform: rotateY(-170deg) translateZ(14px) rotateX(0.5deg);
+  }
+  42% {
+    transform: rotateY(-118deg) translateZ(26px) rotateX(1.2deg);
+  }
+  74% {
+    transform: rotateY(-38deg) translateZ(19px) rotateX(1.5deg);
+  }
+  89% {
+    transform: rotateY(-8deg) translateZ(7px) rotateX(0.6deg);
+  }
+  96% {
+    transform: rotateY(-2.2deg) translateZ(2px) rotateX(0.2deg);
+  }
+  100% {
+    transform: rotateY(0deg) translateZ(0) rotateX(0deg);
+  }
+}
+
+/* Pencahayaan: muka depan makin gelap saat menjauh dari kita */
+@keyframes shadeFrontOpen {
+  0% {
+    box-shadow:
+      0 20px 45px rgba(45, 41, 38, 0.15),
+      inset 0 0 0 600px rgba(60, 45, 30, 0);
+  }
+  50% {
+    box-shadow:
+      0 34px 65px rgba(45, 41, 38, 0.3),
+      inset 0 0 0 600px rgba(60, 45, 30, 0.3);
+  }
+  100% {
+    box-shadow:
+      0 20px 45px rgba(45, 41, 38, 0.15),
+      inset 0 0 0 600px rgba(60, 45, 30, 0.45);
+  }
+}
+
+@keyframes shadeBackOpen {
+  0% {
+    opacity: 1;
+    box-shadow:
+      inset 14px 0 26px rgba(120, 105, 90, 0.18),
+      inset 0 0 0 600px rgba(60, 45, 30, 0.5);
+  }
+  60% {
+    box-shadow:
+      inset 14px 0 26px rgba(120, 105, 90, 0.18),
+      inset 0 0 0 600px rgba(60, 45, 30, 0.26);
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    box-shadow:
+      inset 14px 0 26px rgba(120, 105, 90, 0.18),
+      inset 0 0 0 600px rgba(60, 45, 30, 0);
+  }
+}
+
+@keyframes shadeFrontClose {
+  0% {
+    box-shadow:
+      0 20px 45px rgba(45, 41, 38, 0.15),
+      inset 0 0 0 600px rgba(60, 45, 30, 0.45);
+  }
+  55% {
+    box-shadow:
+      0 34px 65px rgba(45, 41, 38, 0.28),
+      inset 0 0 0 600px rgba(60, 45, 30, 0.26);
+  }
+  100% {
+    box-shadow:
+      0 20px 45px rgba(45, 41, 38, 0.15),
+      inset 0 0 0 600px rgba(60, 45, 30, 0);
+  }
+}
+
+@keyframes shadeBackClose {
+  0% {
+    opacity: 0;
+    box-shadow:
+      inset 14px 0 26px rgba(120, 105, 90, 0.18),
+      inset 0 0 0 600px rgba(60, 45, 30, 0);
+  }
+  12% {
+    opacity: 1;
+  }
+  55% {
+    box-shadow:
+      inset 14px 0 26px rgba(120, 105, 90, 0.18),
+      inset 0 0 0 600px rgba(60, 45, 30, 0.3);
+  }
+  100% {
+    box-shadow:
+      inset 14px 0 26px rgba(120, 105, 90, 0.18),
+      inset 0 0 0 600px rgba(60, 45, 30, 0.5);
+  }
+}
+
+/* --------------------------------------------------
+   SAMPUL DEPAN
+-------------------------------------------------- */
+
+.note-paper[data-page="1"] {
+  color: #f5efe6;
+  text-align: center;
+}
+
+.note-paper[data-page="1"]::before {
+  background: linear-gradient(135deg, #3d3530 0%, #231e1b 100%);
+  border: none;
+  box-shadow:
+    0 26px 55px rgba(35, 30, 27, 0.35),
+    inset 0 0 0 600px rgba(60, 45, 30, 0);
+}
+
+.note-paper[data-page="1"]::after {
+  background: linear-gradient(135deg, #2b2522 0%, #1b1714 100%);
+  border: none;
+  box-shadow:
+    inset 16px 0 30px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 600px rgba(60, 45, 30, 0);
+}
+
+.cover-inner {
+  border: 1px dashed #6b6057;
+  border-radius: 12px;
+  padding: 40px 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cover-inner h2 {
+  font-size: 34px;
+  font-weight: 400;
+  margin: 16px 0 8px;
+  font-family: Georgia, serif;
+}
+
+.cover-subtitle {
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: #c4b8aa;
+}
+
+.cover-name {
+  font-size: 18px;
+  color: #c4b8aa;
+  margin-bottom: 30px;
+}
+
+.cover-footer {
+  font-size: 13px;
+  color: #a39789;
+}
+
+.page-number {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  color: #9a9085;
+}
+
+/* --------------------------------------------------
+   NAVIGASI
+-------------------------------------------------- */
+
+.book-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.nav-btn {
+  padding: 11px 24px;
+  border: 1px solid #9d9790;
+  border-radius: 999px;
+  background: transparent;
+  font-family: Georgia, serif;
+  font-size: 15px;
+  color: #403b37;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: #38332f;
+  color: #fff;
+}
+
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.page-indicator {
+  font-size: 15px;
+  color: #77716b;
+  font-weight: bold;
+}
+
+/* --------------------------------------------------
+   FOTO POLAROID
+-------------------------------------------------- */
+
+.photo-frame {
+  position: absolute;
+  width: 85px;
+  height: 108px;
+  padding: 4px 4px 16px 4px;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  z-index: 5;
+  transition: transform 0.3s ease;
+}
+
+.photo-frame:hover {
+  transform: scale(1.15) rotate(0deg) !important;
+  z-index: 10;
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.tape-strip {
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 12px;
+  background: rgba(235, 225, 205, 0.75);
+  border: 1px solid rgba(210, 195, 170, 0.4);
+}
+
+.photo-top-left {
+  top: 20px;
+  left: -30px;
+  transform: rotate(-8deg);
+}
+
+.photo-bottom-left {
+  bottom: 35px;
+  left: -30px;
+  transform: rotate(6deg);
+}
+
+.photo-top-right {
+  top: 20px;
+  right: -30px;
+  transform: rotate(8deg);
+}
+
+.photo-bottom-right {
+  bottom: 35px;
+  right: -30px;
+  transform: rotate(-6deg);
+}
+
+/* --------------------------------------------------
+   ISI TEKS
+-------------------------------------------------- */
+
+.note-content {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15.5px;
+  line-height: 1.9;
+  color: #38322e;
+  text-align: justify;
+  padding: 0 25px;
+  z-index: 2;
+}
+
+.note-content p {
+  margin-bottom: 14px;
+  text-indent: 18px;
+}
+
+/* --------------------------------------------------
+   RESPONSIVE
+-------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .single-book-container {
+    max-width: 92vw;
+    perspective: 1500px;
+  }
+  .book-wrapper {
+    height: 600px;
+  }
+  .book-wrapper::before {
+    left: -11px;
+    width: 13px;
+  }
+  .book-wrapper::after {
+    right: -6px;
+    width: 7px;
+  }
+  .note-paper {
+    padding: 30px 20px;
+  }
+  .note-content {
+    font-size: 13.5px;
+    padding: 0 10px;
+  }
+  .photo-frame {
+    width: 65px;
+    height: 82px;
+  }
+  .photo-top-left { left: -15px; }
+  .photo-bottom-left { left: -15px; }
+  .photo-top-right { right: -15px; }
+  .photo-bottom-right { right: -15px; }
+}
+
+/* Hormati setting "kurangi animasi" di device */
+@media (prefers-reduced-motion: reduce) {
+  .note-paper.flip-open,
+  .note-paper.flip-close,
+  .note-paper.flip-open::before,
+  .note-paper.flip-open::after,
+  .note-paper.flip-close::before,
+  .note-paper.flip-close::after {
+    animation-duration: 0.01ms !important;
+  }
+}
+/* Confetti yang menumpuk di dasar
+   setelah jatuh, dengan opasitas penuh */
