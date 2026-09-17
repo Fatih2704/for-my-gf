@@ -737,12 +737,7 @@ body {
 
   text-align: center;
 
-  background: linear-gradient(
-    135deg,
-    #ffd6e8 0%,
-    #ffe9c7 50%,
-    #d6f0ff 100%
-  );
+  background: linear-gradient(135deg, #ffd6e8 0%, #ffe9c7 50%, #d6f0ff 100%);
 
   z-index: 999;
 }
@@ -939,8 +934,7 @@ body {
     opacity: 1;
   }
   100% {
-    transform: translateY(var(--land, 96vh))
-      rotate(720deg) rotateY(720deg);
+    transform: translateY(var(--land, 96vh)) rotate(720deg) rotateY(720deg);
     opacity: 1;
   }
 }
@@ -993,11 +987,7 @@ body {
   right: -9px;
   width: 11px;
   border-radius: 0 9px 9px 0;
-  background: repeating-linear-gradient(
-    90deg,
-    #f1eae0 0 2px,
-    #d8cfc1 2px 3px
-  );
+  background: repeating-linear-gradient(90deg, #f1eae0 0 2px, #d8cfc1 2px 3px);
   box-shadow: 0 16px 32px rgba(45, 41, 38, 0.18);
   z-index: 1;
 }
@@ -1471,10 +1461,18 @@ body {
     width: 65px;
     height: 82px;
   }
-  .photo-top-left { left: -15px; }
-  .photo-bottom-left { left: -15px; }
-  .photo-top-right { right: -15px; }
-  .photo-bottom-right { right: -15px; }
+  .photo-top-left {
+    left: -15px;
+  }
+  .photo-bottom-left {
+    left: -15px;
+  }
+  .photo-top-right {
+    right: -15px;
+  }
+  .photo-bottom-right {
+    right: -15px;
+  }
 }
 
 /* Hormati setting "kurangi animasi" di device */
@@ -1490,3 +1488,75 @@ body {
 }
 /* Confetti yang menumpuk di dasar
    setelah jatuh, dengan opasitas penuh */
+
+/* ==================================================
+   FULLSCREEN BUTTON
+================================================== */
+
+.fullscreen-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+
+  margin: 10px auto 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background: transparent;
+
+  color: #89837c;
+
+  cursor: pointer;
+
+  transition:
+    color 0.3s ease,
+    background 0.3s ease,
+    transform 0.2s ease;
+}
+
+.fullscreen-button svg {
+  width: 20px;
+  height: 20px;
+
+  fill: none;
+  stroke: rgb(0 0 0);
+
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.fullscreen-button:hover {
+  color: #403b37;
+  background: rgba(64, 59, 55, 0.06);
+
+  transform: scale(1.08);
+}
+
+.fullscreen-button:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.fullscreen-label {
+  margin: -8px 0 0;
+
+  text-align: center;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 11px;
+
+  letter-spacing: 3px;
+
+  text-transform: uppercase;
+
+  color: #89837c;
+}

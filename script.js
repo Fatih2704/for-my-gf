@@ -440,7 +440,7 @@ yesButton.addEventListener(
                 pages.page3.querySelector(
                     "h1"
                 ).textContent =
-                    "Oh... ternyata benar kamu.";
+                    "Eeee tapi emang bener kamu kok";
 
 
                 showPage(
@@ -869,10 +869,10 @@ function createConfetti() {
 
         piece.style.background =
             colors[
-                Math.floor(
-                    Math.random() *
-                        colors.length
-                )
+            Math.floor(
+                Math.random() *
+                colors.length
+            )
             ];
 
         const duration =
@@ -1016,11 +1016,11 @@ bgmMusic.volume = 0;
 
 // Kalau file-nya ga ketemu / formatnya ditolak browser
 bgmMusic.addEventListener("error", () => {
-  console.log("Musik ga bisa dimuat. Cek lagi path-nya: " + BGM_SRC);
+    console.log("Musik ga bisa dimuat. Cek lagi path-nya: " + BGM_SRC);
 
-  if (musicToggle) {
-    musicToggle.classList.remove("show", "playing");
-  }
+    if (musicToggle) {
+        musicToggle.classList.remove("show", "playing");
+    }
 });
 
 let bgmFadeTimer = null;
@@ -1028,85 +1028,85 @@ let bgmStarted = false;
 let bgmMuted = false;
 
 function fadeBgm(targetVolume, duration, onDone) {
-  if (!bgmMusic) return;
+    if (!bgmMusic) return;
 
-  clearInterval(bgmFadeTimer);
+    clearInterval(bgmFadeTimer);
 
-  const startVolume = bgmMusic.volume;
-  const startTime = performance.now();
+    const startVolume = bgmMusic.volume;
+    const startTime = performance.now();
 
-  bgmFadeTimer = setInterval(() => {
-    const progress = Math.min((performance.now() - startTime) / duration, 1);
+    bgmFadeTimer = setInterval(() => {
+        const progress = Math.min((performance.now() - startTime) / duration, 1);
 
-    bgmMusic.volume = Math.max(
-      0,
-      Math.min(1, startVolume + (targetVolume - startVolume) * progress)
-    );
+        bgmMusic.volume = Math.max(
+            0,
+            Math.min(1, startVolume + (targetVolume - startVolume) * progress)
+        );
 
-    if (progress >= 1) {
-      clearInterval(bgmFadeTimer);
-      if (onDone) onDone();
-    }
-  }, 40);
+        if (progress >= 1) {
+            clearInterval(bgmFadeTimer);
+            if (onDone) onDone();
+        }
+    }, 40);
 }
 
 function startBgm() {
-  if (!bgmMusic || bgmStarted || bgmMuted) return;
+    if (!bgmMusic || bgmStarted || bgmMuted) return;
 
-  bgmStarted = true;
-  bgmMusic.volume = 0;
+    bgmStarted = true;
+    bgmMusic.volume = 0;
 
-  const played = bgmMusic.play();
+    const played = bgmMusic.play();
 
-  // Kalau browser nolak autoplay / file ga ketemu, jangan bikin error
-  if (played && typeof played.catch === "function") {
-    played.catch(() => {
-      bgmStarted = false;
-      console.log("Musik belum bisa diputar.");
-    });
-  }
+    // Kalau browser nolak autoplay / file ga ketemu, jangan bikin error
+    if (played && typeof played.catch === "function") {
+        played.catch(() => {
+            bgmStarted = false;
+            console.log("Musik belum bisa diputar.");
+        });
+    }
 
-  fadeBgm(BGM_VOLUME, BGM_FADE_IN);
+    fadeBgm(BGM_VOLUME, BGM_FADE_IN);
 
-  if (musicToggle) {
-    musicToggle.classList.add("show", "playing");
-    musicToggle.classList.remove("muted");
-  }
+    if (musicToggle) {
+        musicToggle.classList.add("show", "playing");
+        musicToggle.classList.remove("muted");
+    }
 }
 
 function stopBgm() {
-  if (!bgmMusic || !bgmStarted) return;
+    if (!bgmMusic || !bgmStarted) return;
 
-  bgmStarted = false;
+    bgmStarted = false;
 
-  fadeBgm(0, BGM_FADE_OUT, () => {
-    bgmMusic.pause();
-    bgmMusic.currentTime = 0;
-  });
+    fadeBgm(0, BGM_FADE_OUT, () => {
+        bgmMusic.pause();
+        bgmMusic.currentTime = 0;
+    });
 
-  if (musicToggle) {
-    musicToggle.classList.remove("show", "playing");
-  }
+    if (musicToggle) {
+        musicToggle.classList.remove("show", "playing");
+    }
 }
 
 /* Tombol mute / unmute */
 if (musicToggle) {
-  musicToggle.addEventListener("click", () => {
-    if (!bgmMusic) return;
+    musicToggle.addEventListener("click", () => {
+        if (!bgmMusic) return;
 
-    bgmMuted = !bgmMuted;
+        bgmMuted = !bgmMuted;
 
-    if (bgmMuted) {
-      fadeBgm(0, 400, () => bgmMusic.pause());
-      musicToggle.classList.add("muted");
-      musicToggle.classList.remove("playing");
-    } else {
-      bgmMusic.play().catch(() => {});
-      fadeBgm(BGM_VOLUME, 800);
-      musicToggle.classList.remove("muted");
-      musicToggle.classList.add("playing");
-    }
-  });
+        if (bgmMuted) {
+            fadeBgm(0, 400, () => bgmMusic.pause());
+            musicToggle.classList.add("muted");
+            musicToggle.classList.remove("playing");
+        } else {
+            bgmMusic.play().catch(() => { });
+            fadeBgm(BGM_VOLUME, 800);
+            musicToggle.classList.remove("muted");
+            musicToggle.classList.add("playing");
+        }
+    });
 }
 
 /* ==================================================
@@ -1129,158 +1129,199 @@ let isFlipping = false;
 /* Susun tumpukan: yang udah dibalik numpuk di kiri,
    yang belum numpuk di kanan (makin belakang makin dalam) */
 function paintStack() {
-  notePapers.forEach((paper, index) => {
-    if (index < currentPaperIndex) {
-      paper.classList.add("turned");
-      paper.classList.remove("active");
-      paper.style.setProperty("--depth", String(currentPaperIndex - index));
-      paper.style.zIndex = String(20 + index);
-    } else {
-      paper.classList.remove("turned");
-      paper.classList.toggle("active", index === currentPaperIndex);
-      paper.style.setProperty("--depth", String(index - currentPaperIndex));
-      paper.style.zIndex = String(20 + (totalPapers - index));
-    }
-  });
+    notePapers.forEach((paper, index) => {
+        if (index < currentPaperIndex) {
+            paper.classList.add("turned");
+            paper.classList.remove("active");
+            paper.style.setProperty("--depth", String(currentPaperIndex - index));
+            paper.style.zIndex = String(20 + index);
+        } else {
+            paper.classList.remove("turned");
+            paper.classList.toggle("active", index === currentPaperIndex);
+            paper.style.setProperty("--depth", String(index - currentPaperIndex));
+            paper.style.zIndex = String(20 + (totalPapers - index));
+        }
+    });
 }
 
 function paintNav() {
-  if (currentPaperIndex === 0) {
-    pageIndicator.textContent = "Sampul";
-  } else {
-    pageIndicator.textContent = `${currentPaperIndex} / ${totalPapers - 1}`;
-  }
+    if (currentPaperIndex === 0) {
+        pageIndicator.textContent = "Sampul";
+    } else {
+        pageIndicator.textContent = `${currentPaperIndex} / ${totalPapers - 1}`;
+    }
 
-  prevPageBtn.disabled = isFlipping || currentPaperIndex === 0;
-  nextPageBtn.disabled = isFlipping || currentPaperIndex === totalPapers - 1;
+    prevPageBtn.disabled = isFlipping || currentPaperIndex === 0;
+    nextPageBtn.disabled = isFlipping || currentPaperIndex === totalPapers - 1;
 }
 
 function updateBookState() {
-  paintStack();
-  paintNav();
+    paintStack();
+    paintNav();
 }
 
 /* direction: "next" (buka) atau "prev" (tutup) */
 function flipPage(direction) {
-  if (isFlipping) return;
+    if (isFlipping) return;
 
-  const targetIndex =
-    direction === "next" ? currentPaperIndex : currentPaperIndex - 1;
+    const targetIndex =
+        direction === "next" ? currentPaperIndex : currentPaperIndex - 1;
 
-  if (direction === "next" && currentPaperIndex >= totalPapers - 1) return;
-  if (direction === "prev" && currentPaperIndex <= 0) return;
+    if (direction === "next" && currentPaperIndex >= totalPapers - 1) return;
+    if (direction === "prev" && currentPaperIndex <= 0) return;
 
-  const paper = notePapers[targetIndex];
-  if (!paper) return;
+    const paper = notePapers[targetIndex];
+    if (!paper) return;
 
-  isFlipping = true;
-  playClickSound();
-  paintNav();
+    isFlipping = true;
+    playClickSound();
+    paintNav();
 
-  // Sampul mulai kebuka -> musik nyala
-  if (direction === "next" && currentPaperIndex === 0) {
-    startBgm();
-  }
+    // Sampul mulai kebuka -> musik nyala
+    if (direction === "next" && currentPaperIndex === 0) {
+        startBgm();
+    }
 
-  // Balik ke sampul -> musik pelan-pelan mati
-  if (direction === "prev" && currentPaperIndex === 1) {
-    stopBgm();
-  }
+    // Balik ke sampul -> musik pelan-pelan mati
+    if (direction === "prev" && currentPaperIndex === 1) {
+        stopBgm();
+    }
 
-  // Lembar yang lagi diflip harus paling depan
-  paper.style.zIndex = "60";
-  paper.style.setProperty("--depth", "0");
-  paper.classList.remove("active");
+    // Lembar yang lagi diflip harus paling depan
+    paper.style.zIndex = "60";
+    paper.style.setProperty("--depth", "0");
+    paper.classList.remove("active");
 
-  if (direction === "next") {
-    paper.classList.add("flip-open");
-  } else {
-    paper.classList.remove("turned");
-    paper.classList.add("flip-close");
-  }
+    if (direction === "next") {
+        paper.classList.add("flip-open");
+    } else {
+        paper.classList.remove("turned");
+        paper.classList.add("flip-close");
+    }
 
-  let finished = false;
+    let finished = false;
 
-  const finish = (event) => {
-    // Abaikan animationend dari ::before / ::after
-    if (event && event.pseudoElement) return;
-    if (finished) return;
-    finished = true;
+    const finish = (event) => {
+        // Abaikan animationend dari ::before / ::after
+        if (event && event.pseudoElement) return;
+        if (finished) return;
+        finished = true;
 
-    paper.removeEventListener("animationend", finish);
-    clearTimeout(safety);
+        paper.removeEventListener("animationend", finish);
+        clearTimeout(safety);
 
-    paper.classList.remove("flip-open", "flip-close");
-    currentPaperIndex += direction === "next" ? 1 : -1;
-    isFlipping = false;
-    updateBookState();
-  };
+        paper.classList.remove("flip-open", "flip-close");
+        currentPaperIndex += direction === "next" ? 1 : -1;
+        isFlipping = false;
+        updateBookState();
+    };
 
-  // Jaga-jaga kalau animationend nggak kebaca
-  const safety = setTimeout(finish, 1800);
+    // Jaga-jaga kalau animationend nggak kebaca
+    const safety = setTimeout(finish, 1800);
 
-  paper.addEventListener("animationend", finish);
+    paper.addEventListener("animationend", finish);
 }
 
 function showBook() {
-  isFlipping = false;
+    isFlipping = false;
 
-  stopBgm();
-  bgmMuted = false;
+    stopBgm();
+    bgmMuted = false;
 
-  if (musicToggle) {
-    musicToggle.classList.remove("show", "playing", "muted");
-  }
+    if (musicToggle) {
+        musicToggle.classList.remove("show", "playing", "muted");
+    }
 
-  notePapers.forEach((paper) => {
-    paper.classList.remove("flip-open", "flip-close");
-  });
+    notePapers.forEach((paper) => {
+        paper.classList.remove("flip-open", "flip-close");
+    });
 
-  currentPaperIndex = 0;
-  updateBookState();
-  showPage(pages.bookPage);
+    currentPaperIndex = 0;
+    updateBookState();
+    showPage(pages.bookPage);
 }
 
 if (nextPageBtn) {
-  nextPageBtn.addEventListener("click", () => flipPage("next"));
+    nextPageBtn.addEventListener("click", () => flipPage("next"));
 }
 
 if (prevPageBtn) {
-  prevPageBtn.addEventListener("click", () => flipPage("prev"));
+    prevPageBtn.addEventListener("click", () => flipPage("prev"));
 }
 
 /* Geser layar buat ngebalik halaman (HP) */
 if (bookWrapper) {
-  let touchStartX = 0;
-  let touchStartY = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
 
-  bookWrapper.addEventListener(
-    "touchstart",
-    (e) => {
-      touchStartX = e.changedTouches[0].clientX;
-      touchStartY = e.changedTouches[0].clientY;
-    },
-    { passive: true }
-  );
+    bookWrapper.addEventListener(
+        "touchstart",
+        (e) => {
+            touchStartX = e.changedTouches[0].clientX;
+            touchStartY = e.changedTouches[0].clientY;
+        },
+        { passive: true }
+    );
 
-  bookWrapper.addEventListener(
-    "touchend",
-    (e) => {
-      const deltaX = e.changedTouches[0].clientX - touchStartX;
-      const deltaY = e.changedTouches[0].clientY - touchStartY;
+    bookWrapper.addEventListener(
+        "touchend",
+        (e) => {
+            const deltaX = e.changedTouches[0].clientX - touchStartX;
+            const deltaY = e.changedTouches[0].clientY - touchStartY;
 
-      if (Math.abs(deltaX) < 55 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+            if (Math.abs(deltaX) < 55 || Math.abs(deltaX) < Math.abs(deltaY)) return;
 
-      flipPage(deltaX < 0 ? "next" : "prev");
-    },
-    { passive: true }
-  );
+            flipPage(deltaX < 0 ? "next" : "prev");
+        },
+        { passive: true }
+    );
 }
 
 /* Panah kiri/kanan di keyboard */
 document.addEventListener("keydown", (e) => {
-  if (!pages.bookPage || !pages.bookPage.classList.contains("active")) return;
+    if (!pages.bookPage || !pages.bookPage.classList.contains("active")) return;
 
-  if (e.key === "ArrowRight") flipPage("next");
-  if (e.key === "ArrowLeft") flipPage("prev");
+    if (e.key === "ArrowRight") flipPage("next");
+    if (e.key === "ArrowLeft") flipPage("prev");
 });
+
+/* ==================================================
+   FULLSCREEN
+================================================== */
+
+const fullscreenButton =
+    document.getElementById("fullscreenButton");
+
+fullscreenButton.addEventListener(
+    "click",
+    async () => {
+
+        playClickSound();
+
+        try {
+
+            // Masuk fullscreen
+            if (!document.fullscreenElement) {
+
+                await document.documentElement.requestFullscreen();
+
+            }
+
+            // Keluar fullscreen
+            else {
+
+                await document.exitFullscreen();
+
+            }
+
+        } catch (error) {
+
+            console.log(
+                "Fullscreen tidak dapat digunakan.",
+                error
+            );
+
+        }
+
+    }
+);
